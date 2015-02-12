@@ -1,7 +1,23 @@
 import numpy as np
 from textblob import TextBlob
 import re
-from sklearn.feature_extraction.text import TfidfVectorizer as TfidV
+
+
+def word_frequency(bloblist):
+    a_dict = {}
+    for blob in bloblist:
+        xlist = [x for x in blob.words]
+        for item in xlist:
+            if item.lower() in a_dict:
+                a_dict[item.lower()] += 1
+            else:
+                a_dict[item.lower()] = 1
+    return a_dict
+
+
+def top_dict(a_dict, num):
+    sorted_list = sorted(a_dict.items(), key=lambda x: x[1], reverse=True)
+    return sorted_list[0:num]
 
 
 def main_function(bloblist, word1, word2):
@@ -36,17 +52,20 @@ def findword(blobstring, word):
     else:
         return 1
 
+
 def startword(blobstring):
     if blobstring.starts_with('spam'):
         return 1
     else:
         return 0
 
+
 def wordlength(blobstring, num1, num2):
     if num1 < len(blobstring.words) <= num2:
         return 1
     else:
         return 0
+
 
 def numbercheck1(blobstring):
     astring = str(blobstring)
@@ -55,12 +74,14 @@ def numbercheck1(blobstring):
     else:
         return 0
 
+
 def numbercheck5(blobstring):
     astring = str(blobstring)
     if re.search(r"[0-9]{5}", astring):
         return 1
     else:
         return 0
+
 
 def numbercheck10(blobstring):
     astring = str(blobstring)

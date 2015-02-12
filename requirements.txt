@@ -1,3 +1,4 @@
+ipython[all]
 scikit-learn
 pandas
 numpy
